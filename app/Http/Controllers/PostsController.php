@@ -55,7 +55,7 @@ class PostsController extends Controller
         //getClientMimeType()
 
 
-        $test = $request->file('image')->getClientMimeType();
+        
         
         $request->validate([
             'title' => 'required',
@@ -64,7 +64,7 @@ class PostsController extends Controller
             'image'=>'required|mimes:jpg,png,jpeg|max:5048'
         ]);
 
-        $newImageName = time().'-'.$request->name. '.' . $request->image->extension();
+        $newImageName = time().'-'.$request->name. '.' . $request->image->getClientOriginalName();
 
         $test = $request->image->move(public_path('images'),$newImageName);
 
@@ -126,21 +126,21 @@ class PostsController extends Controller
             'image'=>'required|mimes:jpg,png,jpeg|max:5048'
         ]);
 
-        $newImageName = time().'-'.$request->name. '.' . $request->image->extension();
-
-        $test = $request->image->move(public_path('images'),$newImageName);
 
         $data = $request->all();
         $post = Post::find($id);
         $post->title = $data['title'];
         $post->user_id = $data['user_id'];
         $post->description = $data['description'];
-        $post->image = $newImageName;
+        
+        $newImageName = time().'-'.$file->getClientOriginalName();
+
+        $test = $request->image->move(public_path('images'),$newImageName);
         $post->save();
          if( $post->save()){
             Session::flash('message','Your Post updated Successfully');
         }
-        return redirect()->to('posts');
+        return redirect()->to('admin/posts');
     }
 
     /**
@@ -151,6 +151,6 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

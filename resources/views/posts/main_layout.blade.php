@@ -239,7 +239,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{asset('posts')}}"><i class="fa fa-circle-o"></i> Posts</a></li>
+            <li><a href="{{asset('admin/posts')}}"><i class="fa fa-circle-o"></i> Posts</a></li>
             <li><a href="{{route('posts.create')}}"><i class="fa fa-circle-o"></i>Create Post</a></li>
             <li><a href="{{route('users.index')}}"><i class="fa fa-circle-o"></i> Users</a></li>
             </li>

@@ -13,21 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('login','LoginController@index')->name('login');
-Route::post('login','LoginController@confirmLogin')->name('confirmLogin');
+Route::get('/login','LoginController@index')->name('login');
+Route::post('/login','LoginController@confirmLogin')->name('confirmLogin');
 
 /*Route::resource('category','CategoryCotroller');*/
 /*Route::get('/', function () {
     return view('website.index')->name('website');
 });*/
 
-Route::get('/','UserPostController@index')->name('posts');
 
-Route::get('category_post','UserPostController@category')->name('category_post');
-Route::get('singlepost/{id}','UserPostController@show')->name('singlepost');
-
-
-
+Route::get('blog','HomePostController@index')->name('blog');
+Route::get('blog/single/{id}','HomePostController@show')->name('single');
+Route::get('post/{category_id}','CatPostController@index')->name('cat.post');
 
 Route::group(['middleware' => 'auth','prefix'=> 'admin'], function() {
 
@@ -37,9 +34,8 @@ Route::get('logout','LoginController@logout')->name('logout');
 
 Route::resource('users','UsersController');
 Route::get('profile','ProfileController@index')->name('profile');
-Route::get('header/{id}','HeadertopController@edit')->name('header');
-Route::put('header/{id}','HeadertopController@update')->name('header_update');
 
 
+Route::post('comment/{post}','CommentController@store')->name('comment.store');
 
 });
